@@ -15,6 +15,9 @@ app.get('/api/health', (req, res) => {
 const adminAuthRouter = require('./routes/admin-auth');
 app.use('/api/admin', adminAuthRouter);
 
+const adminRouter = require('./routes/admin');
+app.use('/api/admin', adminRouter);
+
 const publicRouter = require('./routes/public');
 app.use('/api', publicRouter);
 
