@@ -15,6 +15,9 @@ app.get('/api/health', (req, res) => {
 const adminAuthRouter = require('./routes/admin-auth');
 app.use('/api/admin', adminAuthRouter);
 
+const publicRouter = require('./routes/public');
+app.use('/api', publicRouter);
+
 // Serve React in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
