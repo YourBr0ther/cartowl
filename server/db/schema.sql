@@ -1,0 +1,45 @@
+CREATE TABLE IF NOT EXISTS sections (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  width INTEGER NOT NULL DEFAULT 1,
+  height INTEGER NOT NULL DEFAULT 1,
+  is_unlocked INTEGER NOT NULL DEFAULT 0,
+  unlocked_at DATETIME,
+  UNIQUE(x, y, width, height)
+);
+
+CREATE TABLE IF NOT EXISTS requests (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  player_name TEXT NOT NULL,
+  message TEXT,
+  x INTEGER NOT NULL,
+  y INTEGER NOT NULL,
+  width INTEGER NOT NULL DEFAULT 1,
+  height INTEGER NOT NULL DEFAULT 1,
+  gold_cost INTEGER NOT NULL DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'pending',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS players (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE,
+  gold_balance INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS legend_entries (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  symbol TEXT NOT NULL,
+  label TEXT NOT NULL,
+  description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS settings (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+
+INSERT OR IGNORE INTO settings (key, value) VALUES
+  ('gold_costs', '{"1x1": 10, "2x2": 35, "3x3": 75, "1x3": 25}'),
+  ('admin_password_hash', '');
