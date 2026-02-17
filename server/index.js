@@ -12,6 +12,9 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', app: 'cartowl' });
 });
 
+const adminAuthRouter = require('./routes/admin-auth');
+app.use('/api/admin', adminAuthRouter);
+
 // Serve React in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/dist')));
@@ -21,8 +24,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Cartowl server running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`Cartowl server running on port ${PORT}`);
+  });
+}
 
 module.exports = app;
