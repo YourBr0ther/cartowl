@@ -1,0 +1,11 @@
+.map-container { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--fog); cursor: grab; user-select: none; }
+.map-container:active { cursor: grabbing; }
+.map-world { position: absolute; transform-origin: 0 0; will-change: transform; }
+.map-image-layer {
+  position: absolute; inset: 0; background-color: var(--fog-mid);
+  background-image: linear-gradient(rgba(200,146,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(200,146,42,0.05) 1px, transparent 1px);
+  background-size: 64px 64px; width: 3200px; height: 3200px;
+}
+.section-unlocked { position: absolute; background: transparent; border: 1px solid rgba(200,146,42,0.3); z-index: 1; pointer-events: none; }
+.fog-cell { position: absolute; background: var(--fog); border: 1px solid rgba(200,146,42,0.08); z-index: 2; animation: fogShimmer 4s ease-in-out infinite; }
+@keyframes fogShimmer { 0%, 100% { opacity: 0.92; } 50% { opacity: 1; } }
