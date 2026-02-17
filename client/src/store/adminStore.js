@@ -29,8 +29,10 @@ export const useAdminStore = create((set, get) => ({
   }),
 
   fetchRequests: async () => {
-    const res = await fetch('/api/admin/requests', { headers: get().authHeaders() })
-    set({ requests: await res.json() })
+    try {
+      const res = await fetch('/api/admin/requests', { headers: get().authHeaders() })
+      if (res.ok) set({ requests: await res.json() })
+    } catch { /* network error */ }
   },
 
   approveRequest: async (id) => {
@@ -50,8 +52,10 @@ export const useAdminStore = create((set, get) => ({
   },
 
   fetchPlayers: async () => {
-    const res = await fetch('/api/admin/players', { headers: get().authHeaders() })
-    set({ players: await res.json() })
+    try {
+      const res = await fetch('/api/admin/players', { headers: get().authHeaders() })
+      if (res.ok) set({ players: await res.json() })
+    } catch { /* network error */ }
   },
 
   createPlayer: async (name, gold_balance) => {
@@ -71,8 +75,10 @@ export const useAdminStore = create((set, get) => ({
   },
 
   fetchLegend: async () => {
-    const res = await fetch('/api/admin/legend', { headers: get().authHeaders() })
-    set({ legend: await res.json() })
+    try {
+      const res = await fetch('/api/admin/legend', { headers: get().authHeaders() })
+      if (res.ok) set({ legend: await res.json() })
+    } catch { /* network error */ }
   },
 
   createLegendEntry: async (entry) => {

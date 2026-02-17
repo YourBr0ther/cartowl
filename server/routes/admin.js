@@ -50,6 +50,8 @@ router.post('/players', (req, res) => {
   const { name, gold_balance = 0 } = req.body;
   if (!name) return res.status(400).json({ error: 'name required' });
   const db = getDb();
+  const existing = db.prepare('SELECT id FROM players WHERE name=?').get(name);
+  if (existing) return res.status(409).json({ error: 'Player already exists' });
   const result = db.prepare('INSERT INTO players (name, gold_balance) VALUES (?,?)').run(name, gold_balance);
   res.status(201).json(db.prepare('SELECT * FROM players WHERE id=?').get(result.lastInsertRowid));
 });

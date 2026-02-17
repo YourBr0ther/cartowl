@@ -7,12 +7,16 @@ export const useMapStore = create((set) => ({
   selectedCell: null,
 
   fetchSections: async () => {
-    const res = await fetch('/api/sections')
-    set({ sections: await res.json() })
+    try {
+      const res = await fetch('/api/sections')
+      if (res.ok) set({ sections: await res.json() })
+    } catch { /* network error — keep existing state */ }
   },
   fetchLegend: async () => {
-    const res = await fetch('/api/legend')
-    set({ legend: await res.json() })
+    try {
+      const res = await fetch('/api/legend')
+      if (res.ok) set({ legend: await res.json() })
+    } catch { /* network error — keep existing state */ }
   },
   toggleLegend: () => set((s) => ({ isLegendOpen: !s.isLegendOpen })),
   selectCell: (cell) => set({ selectedCell: cell }),
